@@ -11,9 +11,10 @@ Boilerplate for koa2 application.
     + nodemon
     + routing
 
-For the ones who prefer express.js I made the same boilerplate
-for express4 - [es7-express4-boilerplate](https://github.com/Darmikon/es7-express4-boilerplate)
-Using 2 similar configurations I hope it would be easier for you to decide:
+For the ones who prefer express.js I made the same boilerplate for express4 </br>
+[es7-express4-boilerplate](https://github.com/Darmikon/es7-express4-boilerplate)</br>
+
+Using 2 similar configurations I hope it would be easier for you to answer the question:
 Koa vs Express what should I choose?
 
 ## License
