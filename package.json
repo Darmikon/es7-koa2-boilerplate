@@ -4,7 +4,7 @@
   "main": "index.js",
   "author": "Damikon",
   "license": "MIT",
-   "keywords": [
+  "keywords": [
     "es6",
     "es7",
     "node",
@@ -14,7 +14,7 @@
     "koa2",
     "boilerplate",
     "starter",
-	"javascript"
+    "javascript"
   ],
   "scripts": {
     "start": "npm-run-all --parallel inspector debug",
