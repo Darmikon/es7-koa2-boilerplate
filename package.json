@@ -52,7 +52,9 @@
     "node-inspector": "^1.1.0",
     "nodemon": "^1.11.0",
     "npm-run-all": "^4.0.2",
-    "rimraf": "^2.6.1"
+    "rimraf": "^2.6.1",
+    "swagger-jsdoc": "^1.9.6",
+    "swagger-ui-koa": "^0.0.1"
   },
   "dependencies": {
     "babel-polyfill": "^6.23.0",

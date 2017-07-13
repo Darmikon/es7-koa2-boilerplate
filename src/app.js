@@ -5,10 +5,12 @@ import addLogger from './module/logger/appWrapper';
 import logger from './module/logger';
 import routes from './routes';
 import middleware from './middleware';
+import swagger from './module/swagger';
 
 const app = new Koa();
 
 base(app);
+swagger(app);
 addLogger(app);
 app.use(middleware());
 app.use(routes);
