@@ -208,7 +208,7 @@ function formatter(options) {
         .replace(/\u001b\[(?:\d+)m/g, '')
       : ''
     }` +
-    `${options.meta && Object.keys(options.meta).length && options.meta.trace
+    `${options.meta && Object.keys(options.meta).length && options.meta.trace && options.meta.trace[0]
     ? `\n\t${options.meta.trace[0].file} on line ${options.meta.trace[0].line}`
     : (options.meta && options.meta.stack
         ? options.meta.stack
