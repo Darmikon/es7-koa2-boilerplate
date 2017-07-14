@@ -1,5 +1,7 @@
 import { bodyParser, betterBody, body } from '../module/parsers';
 import ApiRouter from '../module/api-router';
+import { sql } from 'pg-extra';
+import pool from '../module/db/pg';
 
 export default ApiRouter({
   prefix: '/mock'
@@ -7,7 +9,8 @@ export default ApiRouter({
   .get('/', get)
   // .post('/', bodyParser({ extendTypes: { json: ['text/plain'] } }), post);
   // .post('/', betterBody(), post)
-  .post('/', body(), post);
+  .post('/', body(), post)
+  .get('/pg', pg);
   //†route
 
 //†handler
@@ -26,4 +29,14 @@ async function post(ctx, next) {
   ctx.body = {
     data: ctx.request.body
   };
+}
+
+async function pg(ctx) {
+  try {
+    ctx.body = await pool.many(sql`
+      SELECT * FROM todo.users
+    `);
+  } catch (e) {
+    ctx.body = e;
+  }
 }

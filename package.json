@@ -77,6 +77,8 @@
     "koa-views": "^6.0.2",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
+    "pg": "^6.4.1",
+    "pg-extra": "^0.0.13",
     "pretty-error": "^2.1.0",
     "winston": "^2.3.1"
   }

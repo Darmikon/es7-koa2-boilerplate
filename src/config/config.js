@@ -17,6 +17,15 @@ let base = {
     root: path.resolve(__dirname, '../'),
     gzip: ['text', 'css', 'javascript'],
     html5HistoryAPI: true,
+  },
+  postgres: {
+    user: 'darmikon', //env var: PGUSER
+    database: 'test2', //env var: PGDATABASE
+    password: 'postgres-hero', //env var: PGPASSWORD
+    host: 'localhost', // Server hosting the postgres database
+    port: 5432, //env var: PGPORT
+    max: 10, // max number of clients in the pool
+    idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
   }
 };
 

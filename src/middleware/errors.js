@@ -9,6 +9,7 @@ export default async function errorsCommon(ctx, next) {
   try {
     await next();
   } catch (err) {
+    ctx.logger.error(err)
     ctx.logger.debug(err.status);
     if (!ignoredErrors[err.status]) {
       errorDecorator(ctx, err.status, err);
