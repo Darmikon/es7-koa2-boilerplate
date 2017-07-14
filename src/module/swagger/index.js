@@ -11,8 +11,22 @@ export default function (app) {
     swaggerDefinition: {
       info: {
         title: 'API', // Title (required)
-        version: '2.0.0', // Version (required)
+        version: '1.0.0', // Version (required)
+        termsOfService: '...',
+        contact: {
+          email: 'dev@gmail.com'
+        }
       },
+      tags: [
+        {
+          name: 'pet',
+          description: 'Title for pet ENDPOINT',
+          externalDocs: {
+            description: 'Find out more',
+            url: 'http://swagger.io'
+          }
+        }
+      ],
     },
     apis: [
       './src/module/swagger/swagger.yaml',
