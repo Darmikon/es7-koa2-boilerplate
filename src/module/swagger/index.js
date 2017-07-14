@@ -2,11 +2,9 @@ import swaggerUi from 'swagger-ui-koa';
 import swaggerJSDoc from 'swagger-jsdoc';
 import convert from 'koa-convert';
 import mount from 'koa-mount';
-//import swaggerDocument from './swagger.json';
+import swaggerDocument from './swagger.json';
 
 export default function (app) {
-    //without jsdoc from swagger.json
-  //app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   const options = {
     swaggerDefinition: {
       info: {
@@ -38,4 +36,6 @@ export default function (app) {
   const swaggerSpec = swaggerJSDoc(options);
   app.use(swaggerUi.serve); //serve swagger static files
   app.use(convert(mount('/swagger', swaggerUi.setup(swaggerSpec)))); //mount endpoint for access
+  //without jsdoc from swagger.json
+  app.use(convert(mount('/swagger-demo', swaggerUi.setup(swaggerDocument)))); //mount endpoint for access
 }
