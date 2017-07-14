@@ -92,7 +92,7 @@ export default function historyApiFallback(options) {
     }
 
     if (Array.isArray(options.ignoredEndpoints)) {
-      options.ignoredEndpoints.any((str) => {
+      options.ignoredEndpoints.some((str) => {
         if (parsedUrl.pathname.indexOf(str) !== -1) {
           logger(
             'Not rewriting',
