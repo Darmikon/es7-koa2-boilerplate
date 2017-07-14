@@ -92,7 +92,7 @@ export default function historyApiFallback(options) {
     }
 
     if (Array.isArray(options.ignoredEndpoints)) {
-      options.ignoredEndpoints.some((str) => {
+      const match = options.ignoredEndpoints.some((str) => {
         if (parsedUrl.pathname.indexOf(str) !== -1) {
           logger(
             'Not rewriting',
@@ -100,9 +100,13 @@ export default function historyApiFallback(options) {
             reqUrl,
             'because it is ingored request.'
           );
-          return next();
+          return true;
         }
       });
+
+      if (match) {
+        return next();
+      }
     }
 
     rewriteTarget = options.index || '/index.html';

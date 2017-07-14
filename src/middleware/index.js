@@ -20,11 +20,11 @@ export default function middleware() {
       responseTime,
       nocache,
       error500,
+      config.app.html5HistoryAPI
+        ? historyApi({ index: '/', ignoredEndpoints: ['/api'] })
+        : identity,
       errors,
       error404, //should be at the bottom of errors
-      config.app.html5HistoryAPI
-        ? historyApi({ index: '/', ignoredEnpoings: ['/api'] })
-        : identity,
     ]
   );
 }
