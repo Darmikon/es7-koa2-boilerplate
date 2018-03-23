@@ -4,7 +4,7 @@ export default function (ctx, code, err) {
   if (!err) {
     err = new Error();
   }
-  let { headers, payload } = (err.isBoom ? err : Boom.wrap(err, code)).output;
+  let { headers, payload } = (err.isBoom ? err : Boom.boomify(err, { statusCode: code })).output;
 
   payload.message = err.message || payload.message;
   //https://gist.github.com/charlesdaniel/1686663
