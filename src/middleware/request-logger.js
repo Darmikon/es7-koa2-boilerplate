@@ -3,12 +3,13 @@ import chalk from 'chalk';
 import config from '../config/config';
 
 //Middleware: request logger
-export default async function requestlogger(ctx, next) {
-  let startTime = moment(),
-    endTime,
-    level = 'info',
-    staticPatterns = config.app.staticPatterns,
-    staticRe = new RegExp('\\.\\w+$', 'i');
+async function requestlogger(ctx, next) {
+  let startTime = moment();
+  let endTime;
+  let level = 'info';
+  // TODO remove if not required
+  // let { staticPatterns } = config.app;
+  let staticRe = new RegExp('\\.\\w+$', 'i');
   //don't log static files until they don't exist
   if (config.app.logStatic === true && staticRe.test(ctx.originalUrl)) {
     await next();
@@ -76,3 +77,5 @@ export default async function requestlogger(ctx, next) {
   }
   // console.log(ctx.res);
 }
+
+export default requestlogger;

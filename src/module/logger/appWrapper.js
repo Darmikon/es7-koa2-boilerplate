@@ -1,6 +1,7 @@
 import logger from './index';
 
 export default function wrap(app) {
+  // eslint-disable-next-line no-param-reassign
   app.context.logger = logger;
 
   app.on('error', (e) => {

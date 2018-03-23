@@ -16,12 +16,12 @@ export default function middleware(app) {
   koaQueryParams(app);
 
   app.use(gzip());
-// static
+  // static
   app.use(convert(mount('/static', serve(path.resolve(process.cwd(), 'static')))));
   app.use(convert(mount('/', serve(path.resolve(process.cwd(), 'static')))));
-// app.use(convert(mount('/public', serve(`${process.cwd()}/public`))));
+  // app.use(convert(mount('/public', serve(`${process.cwd()}/public`))));
 
-// views
+  // views
   app.use(views(path.resolve(config.app.root, 'views'), {
     map: { hbs: 'handlebars' },
     options: {
@@ -29,5 +29,6 @@ export default function middleware(app) {
       partials: {
         footer: './partials/footer',
       },
-    } }));
+    }
+  }));
 }

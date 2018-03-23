@@ -2,9 +2,9 @@
   "presets": [
     ["env", {
       "targets": {
-        "browsers": ["last 2 versions"]
+        "node": "current"
       },
-      "debug": true
+      "debug": false
     }],
     "stage-0"
   ],

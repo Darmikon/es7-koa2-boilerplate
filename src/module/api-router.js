@@ -2,6 +2,7 @@ import Router from 'koa-router';
 
 class ApiRouter extends Router {
   constructor(opts = {}) {
+    // eslint-disable-next-line no-param-reassign
     opts.prefix = `/api${opts.prefix ? opts.prefix : ''}`;
     super(opts);
   }
@@ -10,7 +11,7 @@ class ApiRouter extends Router {
 //https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Proxy
 export default new Proxy(ApiRouter, {
   // target = ApiRouter
-  apply(target, thisArg, args) {
-    return new target(...args);
+  apply(Target, thisArg, args) {
+    return new Target(...args);
   }
 });

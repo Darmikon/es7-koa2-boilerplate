@@ -17,21 +17,19 @@
     "javascript"
   ],
   "scripts": {
-    "start": "start:dev",
-    "start:dev": "npm-run-all --parallel debug",
-    "start:prod": "cross-env NODE_ENV=production node ./dist",
-    "start:brk": "npm-run-all --parallel debug:brk",
-    "debug": "cross-env NODE_ENV=development nodemon --inspect ./src",
-    "debug:brk": "cross-env NODE_ENV=development nodemon --inspect-brk ./src",
-    "lint": "eslint ./src",
-    "rd": "rimraf dist",
-    "md": "mkdir dist",
-    "compile": "cross-env NODE_ENV=production babel ./src --out-dir ./dist --source-maps inline --ignore node_modules/** ",
-    "prebuild": "run-s rd",
-    "build": "run-s -n md compile copy:views",
+    "build": "run-s -n lint md compile copy:views",
+    "compile": "cross-env NODE_ENV=production babel ./src --out-dir ./dist --source-maps --ignore node_modules/** ",
     "copy:views": "ncp src/views dist/views",
-    "node:run:build": "node --inspect ./dist",
-    "build:inspect": "cross-env NODE_ENV=production npm-run-all --parallel node:run:build"
+    "debug": "cross-env NODE_ENV=development nodemon src/index.js --inspect --exec babel-node",
+    "debug:brk": "cross-env NODE_ENV=development nodemon src/index.js --inspect-brk --exec babel-node",
+    "lint": "eslint ./src",
+    "md": "mkdir dist",
+    "prebuild": "run-s rd",
+    "start": "run-s debug",
+    "serve": "cross-env NODE_ENV=production node dist/index.js",
+    "serve:debug": "cross-env NODE_ENV=production node --inspect dist/index.js",
+    "TODO#############test": "mocha --compilers js:babel-register",
+    "rd": "rimraf dist"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -50,7 +48,6 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
     "ncp": "^2.0.0",
-    "node-inspector": "^1.1.2",
     "nodemon": "^1.17.2",
     "npm-run-all": "^4.1.2",
     "rimraf": "^2.6.2"

@@ -56,14 +56,14 @@ function logTo(method, ...args) {
 }
 
 function logToConsole(method, ...args) {
-  let argsForConsole = [],
-    matchError = false;
+  let argsForConsole = [];
+  let matchError = false;
 
   if (method !== 'row') {
-    args.forEach((arg, i) => {
+    args.forEach((arg) => {
       if (arg instanceof Error) {
-        const prefix = '____________________exception_______________________',
-          sufix = '_______________________//___________________________';
+        const prefix = '____________________exception_______________________';
+        const sufix = '_______________________//___________________________';
         argsForConsole.push(`${prefix} ${pe.render(arg)} ${sufix}`);
         matchError = true;
       } else if (matchError && {}.toString.call(arg).slice(8, -1) === 'Object') {
@@ -74,6 +74,7 @@ function logToConsole(method, ...args) {
     });
   } else {
     argsForConsole = [].concat(args);
+    // eslint-disable-next-line no-param-reassign
     method = 'error';
   }
 
@@ -86,15 +87,10 @@ function logToConsole(method, ...args) {
 }
 
 function logToFile(method, ...args) {
-  let argsForFile = [],
-    matchError = false,
-    err,
-    ctx,
-    fuckinHackingConfig = {
-      matchError: false,
-      err: null,
-      ctx: null
-    };
+  let argsForFile = [];
+  let matchError = false;
+  let err;
+  let ctx;
 
   if (method !== 'row') {
     args.forEach((arg, i) => {
@@ -107,6 +103,7 @@ function logToFile(method, ...args) {
           , ctx.request && { ctx: ctx.request.ctx }
           , {
             stack: pe.render(err)
+              // eslint-disable-next-line no-control-regex
               .replace(/\u001b\[(?:\d+)m/g, ''),
             message: err.message
           }
@@ -120,11 +117,13 @@ function logToFile(method, ...args) {
     });
   } else {
     argsForFile = [].concat(args);
+    // eslint-disable-next-line no-param-reassign
     method = 'error';
   }
 
   if (matchError) {
     if (LOG_LEVELS[method] < 1) {
+      // eslint-disable-next-line no-console
       console.log(chalk.gray('LOGGED TO: _____________EXCEPTION_FILE__________________'));
     }
     logWinstonFileForException[method](...argsForFile);
@@ -132,6 +131,7 @@ function logToFile(method, ...args) {
     //often errors such as warn: POST /users 405 Method Not Allowed 4ms
     //will be here, but as we have warn level of 405 it will not be printed to file
     if (LOG_LEVELS[method] < 1) {
+      // eslint-disable-next-line no-console
       console.log(chalk.gray('LOGGED TO: _____________ERROR_FILE__________________'));
     }
     logWinstonFile[method](...argsForFile);
@@ -205,12 +205,14 @@ function formatter(options) {
   return `${moment().format('HH:mm:ss')} ${options.level.toUpperCase()}` +
     `${options.message
       ? options.message
+        // eslint-disable-next-line no-control-regex
         .replace(/\u001b\[(?:\d+)m/g, '')
       : ''
     }` +
+    // eslint-disable-next-line no-nested-ternary
     `${options.meta && Object.keys(options.meta).length && options.meta.trace && options.meta.trace[0]
-    ? `\n\t${options.meta.trace[0].file} on line ${options.meta.trace[0].line}`
-    : (options.meta && options.meta.stack
+      ? `\n\t${options.meta.trace[0].file} on line ${options.meta.trace[0].line}`
+      : (options.meta && options.meta.stack
         ? options.meta.stack
         : '')}`;
 }
@@ -221,13 +223,16 @@ function _getCallerFile() {
   try {
     let err = new Error();
     let currentfile;
-    Error.prepareStackTrace = function (err, stack) { return stack; };
+    Error.prepareStackTrace = function prepareStackTrace(error, stack) { return stack; };
     currentfile = err.stack.shift().getFileName();
     while (err.stack.length) {
       callerfile = err.stack.shift().getFileName();
       if (currentfile !== callerfile) break;
     }
-  } catch (e) {}
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e);
+  }
   Error.prepareStackTrace = originalFunc;
   return callerfile;
 }

@@ -12,19 +12,17 @@ import identity from './identity';
 // import gzip from './gzip';
 
 export default function middleware() {
-  return compose(
-    [
-      // gzip(), //should be in base because static server is higher the general middlewares
-      isajax,
-      requestlogger,
-      responseTime,
-      nocache,
-      error500,
-      config.app.html5HistoryAPI
-        ? historyApi({ index: '/', ignoredEndpoints: ['/api'] })
-        : identity,
-      errors,
-      error404, //should be at the bottom of errors
-    ]
-  );
+  return compose([
+    // gzip(), //should be in base because static server is higher the general middlewares
+    isajax,
+    requestlogger,
+    responseTime,
+    nocache,
+    error500,
+    config.app.html5HistoryAPI
+      ? historyApi({ index: '/', ignoredEndpoints: ['/api'] })
+      : identity,
+    errors,
+    error404, //should be at the bottom of errors
+  ]);
 }

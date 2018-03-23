@@ -3,14 +3,13 @@
  * ignoredEndpoings: ['/api'] option was added
  * */
 
-export default function historyApiFallback(options) {
-  options = options || {};
+function historyApiFallback(options = {}) {
   const logger = getLogger(options);
 
-  return async function (ctx, next) {
-    const headers = ctx.request.headers;
+  return async (ctx, next) => {
+    const { headers } = ctx.request;
     const reqUrl = ctx.url;
-    const method = ctx.method;
+    const { method } = ctx;
 
     if (method !== 'GET') {
       logger(
@@ -68,6 +67,7 @@ export default function historyApiFallback(options) {
     };
     let rewriteTarget = null;
 
+    //eslint-disable-next-line no-param-reassign
     options.rewrites = options.rewrites || [];
 
     for (let i = 0; i < options.rewrites.length; i++) {
@@ -102,6 +102,7 @@ export default function historyApiFallback(options) {
           );
           return true;
         }
+        return false;
       });
 
       if (match) {
@@ -140,8 +141,11 @@ function getLogger(options) {
   if (options && options.logger) {
     return options.logger;
   } else if (options && options.verbose) {
+    // eslint-disable-next-line no-console
     return console.log.bind(console);
   }
 
-  return function () {};
+  return () => {};
 }
+
+export default historyApiFallback;

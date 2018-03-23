@@ -19,7 +19,8 @@
     "consistent-return": 0,
     "max-len": 0,
     "no-use-before-define": ["error", { "functions": false, "classes": true }],
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]
   },
   "parserOptions": {
     "ecmaVersion": 6,

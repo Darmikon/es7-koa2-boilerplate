@@ -2,6 +2,7 @@ import Boom from 'boom';
 
 export default function (ctx, code, err) {
   if (!err) {
+    // eslint-disable-next-line no-param-reassign
     err = new Error();
   }
   let { headers, payload } = (err.isBoom ? err : Boom.boomify(err, { statusCode: code })).output;

@@ -1,7 +1,8 @@
 import path from 'path';
 import _ from '../utils/fp';
 
-const env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV;
 const DEFAULT_PORT = 7000;
 /**
  * @property {bool}  logStatic         - Log 404 errors for static files.
@@ -17,15 +18,13 @@ let base = {
     root: path.resolve(__dirname, '../'),
     gzip: ['text', 'css', 'javascript'],
     html5HistoryAPI: true,
+    port: process.env.PORT || DEFAULT_PORT,
   }
 };
 
 
 let specific = {
   development: {
-    app: {
-      port: DEFAULT_PORT,
-    },
     mysql: {
       host: 'localhost',
       port: 3306,
@@ -35,9 +34,6 @@ let specific = {
     }
   },
   production: {
-    app: {
-      port: process.env.PORT || DEFAULT_PORT,
-    },
     mysql: {
       host: 'localhost',
       port: 3306,

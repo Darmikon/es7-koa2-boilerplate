@@ -15,18 +15,19 @@ export default function combineRouters(routers) {
   let middlewares = [];
 
   if (!Array.isArray(routers)) {
+    // eslint-disable-next-line prefer-rest-params, no-param-reassign
     routers = Array.prototype.slice.call(arguments);
   }
 
   routers.forEach((router) => {
     middlewares.push(router.routes());
-    middlewares.push(router.allowedMethods(
-      {
-        throw: false,
-        notImplemented: () => new Boom.notImplemented(),
-        methodNotAllowed: () => new Boom.methodNotAllowed()
-      }
-    ));
+    middlewares.push(router.allowedMethods({
+      throw: false,
+      // eslint-disable-next-line new-cap
+      notImplemented: () => new Boom.notImplemented(),
+      // eslint-disable-next-line new-cap
+      methodNotAllowed: () => new Boom.methodNotAllowed()
+    }));
   });
 
   return compose(middlewares);
